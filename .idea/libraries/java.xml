@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="java">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Java/jre1.8.0_60" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Java/jre1.8.0_60" />
+    </SOURCES>
+    <excluded>
+      <root url="file://$PROJECT_DIR$/../Java/jre1.8.0_60" />
+    </excluded>
+  </library>
+</component>
