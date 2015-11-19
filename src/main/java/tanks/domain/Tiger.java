@@ -16,7 +16,7 @@ public class Tiger extends Aggressor {
     public  Tiger(ActionField af, BattleField bf) {
         super(af, bf);
         setArmore(1);
-        speed = 12;
+        speed = 14;
         tankColor = new Color(0, 100, 0);
         towerColor = new Color(0, 185, 0);
         setImages();
@@ -25,10 +25,12 @@ public class Tiger extends Aggressor {
     public Tiger(ActionField af, BattleField bf, int x, int y, Direction direction) {
         super(af, bf, x, y, direction);
         setArmore(1);
-        speed = 12;
+        speed = 14;
         setImages();
 
     }
+
+
     private void setImages(){
         images = new Image[4];
         try{
@@ -41,12 +43,4 @@ public class Tiger extends Aggressor {
         }
     }
 
-    public void destroy() throws InterruptedException {
-        if (this.getArmore() == 0) {
-            isDestroyed = true;
-        } else {
-            this.setArmore(0);
-            isDestroyed = false;
-        }
-    }
 }

@@ -87,7 +87,7 @@ public class ActionField extends JPanel {
     }
 
 
-    public AbstractTank getTank(int i) throws IOException {
+    public AbstractTank setTank(int i) throws IOException {
 
         if (i == 1) {
             tank = new Tiger(this, battleField);
@@ -494,9 +494,10 @@ public class ActionField extends JPanel {
             public synchronized void run() {
                 final int step = 1;
 
-                for (int i = bullets.size() - 1; i < bullets.size(); i++) {
+                for (int i = bullets.size()-1 ; i < bullets.size(); i++ ){
 
                     final int finalI = i;
+                    System.out.println("name " + finalI);
 
                     new Thread(new Runnable() {
                         @Override
@@ -507,21 +508,17 @@ public class ActionField extends JPanel {
 
                                 if (bullets.get(finalI).getDirection() == 1) {
                                     bullets.get(finalI).updateY(-step);
-                                    System.out.println("name " + finalI + " -Y- " + bullets.get(finalI).getY());
 
                                 } else if (bullets.get(finalI).getDirection() == 2) {
                                     bullets.get(finalI).updateY(step);
-                                    System.out.println("name " + finalI + " -Y- " + bullets.get(finalI).getY());
 
                                 } else if (bullets.get(finalI).getDirection() == 3) {
                                     bullets.get(finalI).updateX(-step);
-                                    System.out.println("name " + finalI + " -X- " + bullets.get(finalI).getX());
 
                                 } else {
                                     bullets.get(finalI).updateX(step);
-                                    System.out.println("name " + finalI + " -X- " + bullets.get(finalI).getX());
                                 }
-                                try {
+                               try {
                                     if (processInterception(bullets.get(finalI))) {
                                         bullets.get(finalI).destroy();
                                     }
@@ -535,6 +532,11 @@ public class ActionField extends JPanel {
                                 }
                                 if (bullets.get(finalI).isDestroyed()) {
                                     break;
+                                }
+                                try {
+                                    Thread.sleep(2);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
                                 }
                             }
                         }
@@ -554,13 +556,13 @@ public class ActionField extends JPanel {
         if (x >= 0 && x < 9 && y >= 0 && y < 9) {
             SimpleBFObject bfObject = battleField.scanQuadrant(y, x);
             if (!bfObject.isDestroyed() && !(bfObject instanceof Blank) && !(bfObject instanceof Water)) {
+                bullet.destroy();
                 battleField.destroyObject(y, x, bfObject);
                 if (bfObject.isDestroyed()) {
                     battleField.updateQuadrante(y, x, "");
                     if (bfObject instanceof Eagle) {
                         td.setGameOver(true);
                         ta.setGameOver(true);
-                        bullets.clear();
                         System.out.println("AF - game over Eagle");
                         //                   tr.run();
                         saved = false;
@@ -573,12 +575,13 @@ public class ActionField extends JPanel {
             if (!bullet.isAgressor()) {
 
                 if (x == tankA.getX() / 64 && y == tankA.getY() / 64) {
-                    tankA.destroy();
+                    System.out.println("Armor TA - " + tankA.getArmore());
                     bullet.destroy();
+                    tankA.destroy();
+                    System.out.println("Armor TA - " + tankA.getArmore());
                     if (tankA.isDestroyed) {
                         td.setGameOver(true);
                         ta.setGameOver(true);
-                        bullets.clear();
                         System.out.println("AF - game over TS");
 //                        tr.run();
                         saved = false;
@@ -590,12 +593,11 @@ public class ActionField extends JPanel {
 
             if (bullet.isAgressor()) {
                 if (x == tank.getX() / 64 && y == tank.getY() / 64) {
-                    tank.destroy();
                     bullet.destroy();
+                    tank.destroy();
                     if (tank.isDestroyed) {
                         td.setGameOver(true);
                         ta.setGameOver(true);
-                        bullets.clear();
                         System.out.println("AF - game over TD");
 //                    tr.run();
                         saved = false;
@@ -609,12 +611,7 @@ public class ActionField extends JPanel {
     }
 
 
-    private boolean gameOver(int i) {
-
-        boolean gO = false;
-        if (i!=0){
-            gO = true;
-        }
+    private void gameOver(int i) {
 
         final JFrame fr = new JFrame("BATTLE FIELD, DAY 2");
         fr.setLocation(550, 100);
@@ -691,7 +688,6 @@ public class ActionField extends JPanel {
         fr.pack();
         fr.setVisible(true);
 
-        return gO;
     }
 
 

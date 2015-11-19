@@ -14,9 +14,7 @@ public class Launcher {
         Thread.sleep(1000);
 
         ActionField af = new ActionField();
-        af.getTank(ct.youChoise());
-
-        System.out.println("Launcher ,- Tank = " + ct.youChoise());
+        af.setTank(ct.youChoise());
         af.runTheGame();
     }
 }

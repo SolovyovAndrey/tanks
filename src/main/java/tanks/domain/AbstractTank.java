@@ -114,7 +114,6 @@ public abstract class AbstractTank implements Destroyable, Drawable {
 
         } else {
             armore--;
-            isDestroyed = false;
         }
     }
 
@@ -143,6 +142,7 @@ public abstract class AbstractTank implements Destroyable, Drawable {
             }
             this.action("move");
             this.action("fire");
+        Thread.sleep(120);
  //       }
     }
 

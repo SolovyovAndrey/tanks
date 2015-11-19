@@ -23,14 +23,14 @@ public class Replay {
     public void start() throws Exception {
 
         ActionField af = new ActionField();
-        System.out.println(af.getTank(Integer.valueOf(stepTank.get(0))).getClass().getSimpleName());
+        System.out.println(af.setTank(Integer.valueOf(stepTank.get(0))).getClass().getSimpleName());
         tank = new Tiger(af, battleField);
         af.savedReplay = false;
         tankA = new Tiger(af, battleField, 256, 512, Direction.DOWN);
         ThreadVision tv = new ThreadVision(af);
         new Thread(tv).start();
 
- //       ThreadAgressor ta = new ThreadDefaunder(af.getTank(Integer.valueOf(stepTank.get(0))), af.savedReplay, stepTank, stepDefaunder);
+ //       ThreadAgressor ta = new ThreadDefaunder(af.setTank(Integer.valueOf(stepTank.get(0))), af.savedReplay, stepTank, stepDefaunder);
  //       new Thread(td).start();
 
         
